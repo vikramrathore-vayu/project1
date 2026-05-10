@@ -1,0 +1,451 @@
+import { FormEvent, useMemo, useState } from "react";
+
+const CONTACT_NUMBER = "7851067550";
+const CONTACT_EMAIL = "vikramsinghkalwani@gmail.com";
+const WHATSAPP_BASE = `https://wa.me/${CONTACT_NUMBER}`;
+
+const navLinks = [
+  { label: "Services", href: "#services" },
+  { label: "Experience", href: "#experience" },
+  { label: "Work", href: "#work" },
+  { label: "Visit", href: "#visit" },
+];
+
+const stats = [
+  { label: "Projects shipped", value: "143" },
+  { label: "Avg. ROI", value: "3.7x" },
+  { label: "Avg. go-live", value: "28 days" },
+];
+
+const services = [
+  {
+    title: "Modern Websites",
+    description:
+      "3D-first hero sections, premium UI systems, and mobile-perfect flows designed for Jaipur's hospitality, retail, and service brands.",
+    points: ["Three.js hero frames", "Copy + UX writing", "Speed obsessed build"],
+  },
+  {
+    title: "Commerce & Funnels",
+    description:
+      "Shopify, Razorpay, and WhatsApp-ready journeys that turn curious visitors into high-intent customers.",
+    points: ["Headless storefronts", "Automated CRM", "WhatsApp catalogues"],
+  },
+  {
+    title: "SEO & Performance",
+    description:
+      "On-page SEO, structured data, and analytics so your launch ranks and converts from day zero.",
+    points: ["Technical SEO audits", "Local keyword sprints", "Core Web Vitals monitoring"],
+  },
+];
+
+const experiences = [
+  {
+    name: "Hotel Arcadia Plutus",
+    sector: "Luxury stays",
+    detail: "Booking engine, SEO migration, and immersive 3D walkthrough in five weeks.",
+  },
+  {
+    name: "Sair India",
+    sector: "Travel couture",
+    detail: "3D itinerary builder with WhatsApp concierge tied to Razorpay subscriptions.",
+  },
+  {
+    name: "Pink Thread Boutique",
+    sector: "Designer couture",
+    detail: "Interactive lookbook + headless Shopify fueling 3.2x revenue uplift.",
+  },
+  {
+    name: "Royal Brew Cafe",
+    sector: "Hospitality",
+    detail: "Local SEO, QR ordering, and menu microsite boosting walk-ins by 48%.",
+  },
+];
+
+const caseStudies = [
+  {
+    title: "Arcadia Plutus",
+    metric: "+188% direct bookings",
+    description: "3D lobby fly-through + lightning-fast booking flow",
+    image:
+      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1000&q=80",
+  },
+  {
+    title: "Sair India",
+    metric: "4.9★ itinerary experience",
+    description: "Interactive journey designer + WhatsApp automation",
+    image:
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=80",
+  },
+  {
+    title: "Pink Thread Boutique",
+    metric: "3.2x online revenue",
+    description: "Shoppable lookbook built with headless Shopify",
+    image:
+      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1000&q=80",
+  },
+];
+
+const reviews = [
+  {
+    quote:
+      "Launch day at Arcadia Plutus sold out purely from the new site experience. Vayu feels like an internal squad.",
+    name: "Rahul Mathur",
+    role: "General Manager, Hotel Arcadia Plutus",
+  },
+  {
+    quote:
+      "Sair India's itineraries now live as 3D stories and our WhatsApp leads doubled in 8 weeks.",
+    name: "Sonia Bansal",
+    role: "Founder, Sair India",
+  },
+  {
+    quote:
+      "Royal Brew finally ranks on Google and the site loads instantly. Footfalls are up 48%.",
+    name: "Nakul Varma",
+    role: "Partner, Royal Brew Cafe",
+  },
+];
+
+const seoChecklist = [
+  "Schema + structured data baked into every page",
+  "Lazy-loaded media with Core Web Vitals monitoring",
+  "Localized keyword research for Jaipur & PAN India",
+];
+
+const floatingTags = [
+  { label: "3D Brand Films", accent: "from-sky-400 to-cyan-500" },
+  { label: "WhatsApp CRM", accent: "from-emerald-400 to-teal-500" },
+  { label: "SEO Heatmaps", accent: "from-amber-300 to-orange-500" },
+];
+
+export default function App() {
+  const [waMessage, setWaMessage] = useState(
+    "Hi Vayu, we need a premium website for our business."
+  );
+
+  const whatsappHref = useMemo(() => {
+    const payload = encodeURIComponent(
+      waMessage.trim() || "Hi Vayu team, let's build something iconic."
+    );
+    return `${WHATSAPP_BASE}?text=${payload}`;
+  }, [waMessage]);
+
+  const handleWhatsAppSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    window.open(whatsappHref, "_blank");
+  };
+
+  return (
+    <div className="bg-gradient-to-b from-white via-slate-50 to-slate-100 text-slate-900">
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 lg:px-8 lg:pb-20 lg:pt-10">
+        <header className="rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-lg shadow-slate-200/60">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex items-center gap-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500 via-cyan-400 to-blue-600 text-2xl font-black text-white shadow-lg shadow-cyan-200">
+                V
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.5em] text-slate-500">Vayu Studio</p>
+                <h1 className="text-2xl font-semibold text-slate-900">Premium web studio from Jaipur</h1>
+                <p className="text-sm text-slate-500">Websites + SEO + WhatsApp funnels for modern small businesses.</p>
+              </div>
+            </div>
+            <nav className="flex flex-wrap gap-3 text-sm text-slate-600">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  className="rounded-full border border-slate-200 px-4 py-2 transition hover:border-sky-400 hover:text-slate-900"
+                  href={link.href}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+            <div className="flex flex-col gap-2 text-sm font-medium lg:text-right">
+              <a
+                className="rounded-full bg-gradient-to-r from-sky-500 to-blue-600 px-5 py-2 text-center font-semibold text-white shadow-lg shadow-sky-200 transition hover:brightness-110"
+                href={`tel:${CONTACT_NUMBER}`}
+              >
+                Call • {CONTACT_NUMBER}
+              </a>
+              <a
+                className="rounded-full border border-slate-200 px-5 py-2 text-center text-slate-600 transition hover:border-sky-400 hover:text-slate-900"
+                href={`mailto:${CONTACT_EMAIL}`}
+              >
+                {CONTACT_EMAIL}
+              </a>
+            </div>
+          </div>
+        </header>
+
+        <main className="mt-12 space-y-20">
+          <section className="grid gap-10 lg:grid-cols-[1.1fr,0.9fr]">
+            <div className="space-y-8">
+              <div className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs uppercase tracking-[0.4em] text-slate-500">
+                Jaipur • Boutique Web Partner
+              </div>
+              <div className="space-y-4">
+                <h2 className="text-4xl font-semibold leading-tight text-slate-900 lg:text-5xl">
+                  Simple, premium websites with cinematic 3D moments & clear funnels.
+                </h2>
+                <p className="text-lg text-slate-600">
+                  We keep Vayu intentionally small so every founder gets clarity on copy, design, code, SEO, and WhatsApp automation—from Hotel Arcadia Plutus to Sair India.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  className="rounded-full bg-slate-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-800"
+                  href={WHATSAPP_BASE}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Chat on WhatsApp
+                </a>
+                <a
+                  className="rounded-full border border-slate-300 px-6 py-3 text-sm font-medium text-slate-900 transition hover:border-slate-400"
+                  href={`tel:${CONTACT_NUMBER}`}
+                >
+                  Call {CONTACT_NUMBER}
+                </a>
+              </div>
+              <dl className="grid gap-4 sm:grid-cols-3">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="rounded-2xl border border-slate-200 bg-white px-4 py-5 text-center">
+                    <dt className="text-xs uppercase tracking-[0.4em] text-slate-400">{stat.label}</dt>
+                    <dd className="text-3xl font-semibold text-slate-900">{stat.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <form className="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg" onSubmit={handleWhatsAppSubmit}>
+                <p className="text-xs uppercase tracking-[0.4em] text-slate-400">WhatsApp query form</p>
+                <label className="sr-only" htmlFor="wa-message">
+                  WhatsApp message
+                </label>
+                <textarea
+                  id="wa-message"
+                  value={waMessage}
+                  onChange={(event) => setWaMessage(event.target.value)}
+                  className="mt-3 min-h-[110px] w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-400 focus:outline-none"
+                  placeholder="Tell us about your business, problem, deadline..."
+                />
+                <button
+                  className="mt-4 w-full rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-lg shadow-emerald-200 transition hover:scale-[1.01]"
+                  type="submit"
+                >
+                  Send on WhatsApp
+                </button>
+              </form>
+            </div>
+
+            <div className="rounded-[32px] border border-slate-200 bg-white/90 p-8 shadow-2xl">
+              <div className="perspective-1200">
+                <div className="relative h-[420px] w-full preserve-3d">
+                  <div
+                    className="absolute inset-x-4 top-6 rounded-[26px] border border-slate-200 bg-cover bg-center shadow-2xl"
+                    style={{
+                      transform: "rotateY(-12deg) rotateX(6deg) translateZ(60px)",
+                      backgroundImage:
+                        "url(https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80)",
+                    }}
+                  >
+                    <div className="rounded-[26px] bg-gradient-to-b from-black/10 to-black/50 p-6 text-white">
+                      <p className="text-xs uppercase tracking-[0.4em]">3D preview</p>
+                      <h3 className="mt-4 text-2xl font-semibold">Hotel Arcadia Plutus</h3>
+                      <p className="text-sm text-slate-100">Lobby walkthrough, booking bar, realtime availability.</p>
+                    </div>
+                  </div>
+                  <div
+                    className="absolute right-6 top-20 w-60 rounded-[24px] border border-slate-200 bg-white p-5 shadow-xl"
+                    style={{ transform: "rotateY(18deg) rotateX(-8deg) translateZ(45px)" }}
+                  >
+                    <p className="text-xs uppercase tracking-[0.35em] text-slate-500">Live metrics</p>
+                    <p className="mt-3 text-4xl font-semibold text-slate-900">97</p>
+                    <p className="text-xs text-slate-500">Core Web Vitals</p>
+                    <ul className="mt-3 space-y-1 text-xs text-slate-600">
+                      {seoChecklist.map((item) => (
+                        <li key={item}>• {item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="absolute bottom-10 right-4 flex flex-col gap-3">
+                    {floatingTags.map((tag, index) => (
+                      <div
+                        key={tag.label}
+                        className={`rounded-2xl border border-white/60 bg-gradient-to-r ${tag.accent} px-4 py-2 text-sm font-semibold text-white shadow-lg`}
+                        style={{ transform: `rotateY(6deg) translateZ(${20 + index * 8}px)` }}
+                      >
+                        {tag.label}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="absolute inset-x-10 bottom-4 h-24 rounded-full bg-gradient-to-r from-sky-200/60 to-fuchsia-200/50 blur-3xl" />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="services" className="space-y-8">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.4em] text-slate-500">Services</p>
+                <h2 className="text-3xl font-semibold text-slate-900">Everything you need from brief to go-live</h2>
+              </div>
+              <a className="text-sm font-medium text-sky-600" href={`mailto:${CONTACT_EMAIL}`}>
+                Ask for the detailed deck →
+              </a>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {services.map((service) => (
+                <article key={service.title} className="glass-panel rounded-3xl p-6">
+                  <h3 className="text-2xl font-semibold text-slate-900">{service.title}</h3>
+                  <p className="mt-3 text-sm text-slate-500">{service.description}</p>
+                  <ul className="mt-5 space-y-2 text-sm text-slate-700">
+                    {service.points.map((point) => (
+                      <li key={point} className="flex items-center gap-2">
+                        <span className="h-2 w-2 rounded-full bg-sky-400" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section id="experience" className="space-y-6">
+            <div className="flex flex-wrap items-center gap-4">
+              <p className="text-xs uppercase tracking-[0.4em] text-slate-500">Experience</p>
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {experiences.map((exp) => (
+                <article key={exp.name} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <p className="text-sm uppercase tracking-[0.35em] text-slate-500">{exp.sector}</p>
+                  <h3 className="mt-2 text-2xl font-semibold text-slate-900">{exp.name}</h3>
+                  <p className="mt-2 text-sm text-slate-600">{exp.detail}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section id="work" className="space-y-8">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.4em] text-slate-500">Recent work</p>
+                <h2 className="text-3xl font-semibold text-slate-900">Proof that premium experiences convert</h2>
+              </div>
+              <a className="text-sm font-medium text-sky-600" href={WHATSAPP_BASE} target="_blank" rel="noreferrer">
+                Book a live walk-through →
+              </a>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {caseStudies.map((study) => (
+                <article key={study.title} className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg">
+                  <div
+                    className="h-48 w-full bg-cover bg-center"
+                    style={{ backgroundImage: `url(${study.image})` }}
+                  />
+                  <div className="p-6">
+                    <p className="text-xs uppercase tracking-[0.4em] text-slate-400">{study.metric}</p>
+                    <h3 className="mt-3 text-2xl font-semibold text-slate-900">{study.title}</h3>
+                    <p className="mt-2 text-sm text-slate-600">{study.description}</p>
+                    <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-sky-600">
+                      View case study
+                      <span>→</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="grid gap-8 lg:grid-cols-[0.85fr,1.15fr]">
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <p className="text-xs uppercase tracking-[0.4em] text-slate-500">SEO + Performance</p>
+              <h2 className="mt-3 text-3xl font-semibold text-slate-900">SEO is built in, not bolted on</h2>
+              <p className="mt-2 text-sm text-slate-600">
+                Metadata, structured data, content pillars, and analytics dashboards go live with your site so discovery never lags behind design.
+              </p>
+              <ul className="mt-4 space-y-2 text-sm text-slate-700">
+                {seoChecklist.map((item) => (
+                  <li key={item} className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-sky-400" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="grid gap-6 md:grid-cols-2">
+              {reviews.map((review) => (
+                <blockquote key={review.name} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <p className="text-base text-slate-900">“{review.quote}”</p>
+                  <footer className="mt-4 text-sm text-slate-500">
+                    {review.name} • {review.role}
+                  </footer>
+                </blockquote>
+              ))}
+            </div>
+          </section>
+
+          <section id="visit" className="grid gap-8 lg:grid-cols-2">
+            <div className="space-y-4">
+              <p className="text-xs uppercase tracking-[0.4em] text-slate-500">Visit us</p>
+              <h2 className="text-3xl font-semibold text-slate-900">Studio inside WsCube Tech • Jaipur</h2>
+              <p className="text-slate-600">
+                Work from our Vasundhara Colony space, sip on cutting chai, and review prototypes live with the Vayu core team.
+              </p>
+              <div className="space-y-2 text-sm text-slate-600">
+                <p>
+                  <strong className="text-slate-900">WhatsApp:</strong> {CONTACT_NUMBER}
+                </p>
+                <p>
+                  <strong className="text-slate-900">Call:</strong> {CONTACT_NUMBER}
+                </p>
+                <p>
+                  <strong className="text-slate-900">Mail:</strong> {CONTACT_EMAIL}
+                </p>
+                <p>
+                  <strong className="text-slate-900">Address:</strong> WsCube Tech, Manav Ashram Colony, Vasundhara Colony, Gopal Pura Mode, Jaipur
+                </p>
+              </div>
+            </div>
+            <div className="overflow-hidden rounded-3xl border border-slate-200 shadow-xl">
+              <iframe
+                title="WsCube Tech Jaipur on Google Maps"
+                src="https://maps.google.com/maps?q=WsCube%20Tech%20Jaipur&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                className="h-80 w-full"
+                loading="lazy"
+                allowFullScreen
+              />
+            </div>
+          </section>
+
+          <section className="rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-lg">
+            <p className="text-sm uppercase tracking-[0.4em] text-slate-500">Launch with Vayu</p>
+            <h2 className="mt-3 text-3xl font-semibold text-slate-900">Tell us what you’re building and we’ll reply within 12 hours</h2>
+            <p className="mt-2 text-slate-600">
+              Send a deck, voice note, or WhatsApp text—whatever is fastest. We’ll come back with a clear roadmap, scope, and pricing.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+              <a
+                className="rounded-full bg-gradient-to-r from-sky-500 via-cyan-500 to-indigo-500 px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-xl"
+                href={WHATSAPP_BASE}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Start on WhatsApp
+              </a>
+              <a className="rounded-full border border-slate-300 px-8 py-3 text-sm font-semibold text-slate-900" href={`mailto:${CONTACT_EMAIL}`}>
+                Email the brief
+              </a>
+            </div>
+          </section>
+        </main>
+
+        <footer className="mt-12 border-t border-slate-200 pt-8 text-center text-sm text-slate-500">
+          © {new Date().getFullYear()} Vayu Studio • Jaipur-born, delivering premium web experiences.
+        </footer>
+      </div>
+    </div>
+  );
+}
